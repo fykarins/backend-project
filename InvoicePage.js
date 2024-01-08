@@ -40,7 +40,7 @@ export const InvoicePage = () => {
   const [vendorCode, setVendorCode] = useState("");
   const [refDocNo, setRefDocNo] = useState("");
   const [allocNmbr, setAllocNmbr] = useState("");
-  const [puroch, setPuroch] = useState("");
+  const [puroch, setPuroch] = useState(""); //buat deklarasi state
 
   const filterVendorCode =
     user.vendor_code === null ? vendorCode : user.vendor_code;
@@ -50,13 +50,13 @@ export const InvoicePage = () => {
     dispatch(resetData());
   }, [dispatch]);
 
-  const handleSearch = async () => {
+  const handleSearch = async () => { //pemanggilan fungsi handle search
     const params = {
       vendor_code: filterVendorCode,
       ref_doc_no: refDocNo,
       alloc_nmbr: allocNmbr,
       with_po: "Y",
-      value: puroch,
+      value: puroch, //parameter pembacaan u/ melakukan permintaan API
       pageNo: 1,
       pageSize: 10,
     };
@@ -139,7 +139,7 @@ export const InvoicePage = () => {
     }
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event) => { //pencarian saat menekan tombol enter
     if (event.key === "Enter") {
       handleSearch();
     }
@@ -273,7 +273,7 @@ export const InvoicePage = () => {
                         </Col>
                       </Form.Group>
                     )}
-                    <Button className="btn btn-danger" onClick={handleSearch}>
+                    <Button className="btn btn-danger" onClick={handleSearch}> 
                       Search
                     </Button>
                   </Col>
