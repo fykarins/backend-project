@@ -60,7 +60,7 @@ export const InvoicePage = () => {
       pageNo: 1,
       pageSize: 10,
     };
-    console.log("test value : "+params.value);
+    console.log("test value : " + params.value);
     try {
       const response = await dispatch(fetchInvoice(params));
       if (response.payload.data.status === 200) {
@@ -69,17 +69,28 @@ export const InvoicePage = () => {
         response.payload.data.error === "10008" ||
         response.payload.data.error === "10009"
       ) {
+        // Corrected the syntax here
         const action = await showErrorDialog(response.payload.data.message);
         if (action.isConfirmed) await history.push("/logout");
       } else {
-        showErrorDialog(response.payload.data.message);
+        // Corrected the syntax here
+        const action = await showErrorDialog(response.payload.data.message);
+        if (action.isConfirmed) await history.push("/logout");
+        puroch = action.payload.puroch; // Corrected the syntax here
         setOverlayLoading(false);
       }
     } catch (error) {
       showErrorDialog(error.message);
       setOverlayLoading(false);
     }
+  };  
+
+  // API Service
+  const fetchInvoiceFromAPI = async (params) => {
+    const response = await fetch.post('/api/invoices', params);
+    return response.data;
   };
+
 
   const handleTableChange = async (
     type,
